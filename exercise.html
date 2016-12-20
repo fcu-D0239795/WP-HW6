@@ -1,0 +1,117 @@
+<!DOCTYPE> 
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>第六次作業</title>
+        
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		
+		<style>
+        body{
+            font-size:75%;
+            background: #797740 url(https://pic.pimg.tw/playsport/1359604051-1379658451.jpg) no-repeat fixed center top;
+            font-family: "微軟正黑體", Arial, Verdana, Helvetica, sans-serif;
+            line-height:1.5;
+            margin:0;
+            padding:0;
+            background-color:#FFFFFF;
+            min-height:70%;
+        }
+		#active{
+			width:800;
+			height:250;
+			margin:20 auto;
+			border:5px solid #333333;
+		}
+		#active img{
+			width:250px;
+			height:250px;
+			float:left;
+			background:rgba(255,255,255,0.9);
+		}
+		#active-add{
+			height:30px;
+			float:right;
+			margin-right:30px;
+		}
+		#active-h1{
+			width:500px;
+			height:80px;
+			float:right;
+			color:#FF7100;
+		}
+		#active-h1 h1{
+			overflow:hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		#active-inner{
+			width:460;
+			margin:0 20px;
+			height:140px;
+			float:right;
+		}
+		#active-inner p{
+			float:right;
+			font-size:16px;
+			overflow : hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 4;
+			-webkit-box-orient: vertical;
+		}
+		</style>
+		<script>
+			$(function(){
+				$.ajax( {
+					url: "http://140.134.26.71:58080/web-prog/Hotels",
+					type: "GET",
+					dataType: "json",
+					
+					success: function(data) {
+						var items = data.Infos.Info;
+						for(var i = 0; i<items.length;i++){
+							var name = items[i].Name;
+							var imgURL = items[i].Picture1;
+							var website = items[i].Website;
+							var data = items[i].Description;
+							var address = items[i].Add;
+							var px = items[i].Px;
+							var py = items[i].Py;
+							
+							$("#show").append(
+                                                    '<div class=col-md-4>'+
+                                                        '<div class=thumbnail>'+
+                                                            '<a href="'+website+'">'+
+                                                                '<img src="'+imgURL+'" style="height:300; width:300;">'+ 
+                                                                '<div class=caption>'+
+                                                                    '<p>'+address+'&nbsp;&nbsp;'+px+'&nbsp;&nbsp;'+py+'</p>'+
+                                                                    '<h1>'+name+'</h1>'+
+                                                                    '<p style="font-size:16px; overflow : hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">'+data+'</p>'+
+                                                                '</div>'+
+                                                            '</a>'+
+                                                        '</div>'+
+                                                    '</div>');
+						}
+					},
+					error: function() {
+					//處理錯誤
+					}
+				});
+			});
+        </script>
+    </head>
+    <body>
+        <div id="container-fluid">
+            <div class="row">
+                <div id="show">
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
